@@ -35,3 +35,4 @@ User guide
 
    user/install
    user/differences
+   user/quickstart
