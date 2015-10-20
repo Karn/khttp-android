@@ -81,7 +81,7 @@ will enable ``Collection``\ s to be passed.
 
 ::
 
-    println(r.url)
+    println(r.url) // http://httpbin.org/get?key1=value1&key2=value2
 
 Response content
 ----------------
