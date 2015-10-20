@@ -54,6 +54,9 @@ If, for some reason, you need a nonstandard request type, that's supported too.
     import me.kyleclemens.khttp.request
     val r = request("NONSTANDARD", "http://example.com")
 
+*Note:* From here on out, the import statements are going to be dropped from the code snippets. They should all be easy
+enough to figure out.
+
 Passing parameters in URLs
 --------------------------
 
