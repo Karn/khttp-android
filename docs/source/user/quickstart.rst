@@ -67,6 +67,9 @@ and ``key2=value2`` to ``httpbin.org/get``\ , you would use the following code:
 
 ::
 
-    val payload = Parameters("key1" to "value1", "key2" to "value2")
+    val payload = mapOf("key1" to "value1", "key2" to "value2")
     val r = get("http://httpbin.org/get", params=payload)
 
+Note that there is a ``Parameters`` class that can be used, as well. There's no real advantage to using it, but it is an
+option. Note that ``FormParameters`` is used for data, not URL parameters (although it will still work as URL parameters
+if given to the params argument).
