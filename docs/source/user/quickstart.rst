@@ -34,7 +34,7 @@ request.
 
 ::
 
-    import me.kyleclemens.khttp.get
+    import me.kyleclemens.khttp.post
     post("http://httpbin.org/post", data = mapOf("key" to "value"))
 
 Easy. khttp supports every other HTTP request, as well.
