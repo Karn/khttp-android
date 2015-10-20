@@ -85,17 +85,10 @@ very different.
   If a ``POST`` request is made to a login form, and a cookie is set before being redirected back to the homepage, that
   cookie will be available in the homepage response.
 
-Contents:
+User guide
+----------
 
 .. toctree::
    :maxdepth: 2
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   user/install
