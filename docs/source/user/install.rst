@@ -16,7 +16,7 @@ Maven
 
 Add the JitPack repository
 
-.. code-block: xml
+.. code-block:: xml
 
 	<repository>
 	    <id>jitpack.io</id>
@@ -25,7 +25,7 @@ Add the JitPack repository
 
 Add the dependency
 
-.. code-block: xml
+.. code-block:: xml
 
 	<dependency>
 	    <groupId>com.github.jkcclemens</groupId>
