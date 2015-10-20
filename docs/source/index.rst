@@ -28,7 +28,7 @@ module. khttp uses only the ``org.json.json`` library and native Java. There's n
     r.jsonObject // org.json.JSONObject
 
 Notable variations from requests
-================================
+--------------------------------
 
 khttp attempts to be as close to the requests module as possible, but there are some variations, especially in features
 that have yet to be implemented.
@@ -63,7 +63,7 @@ that have yet to be implemented.
   Java is just awful at HTTP.
 
 Notable variations from plain ol' Java
-======================================
+--------------------------------------
 
 These are variations in how HTTP requests are handled. Obviously the methods in which the requests are made are very,
 very different.
