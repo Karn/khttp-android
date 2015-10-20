@@ -7,7 +7,7 @@ khttp: HTTP without the bullshit
 ================================
 
 khttp is a `Mozilla Public License 2.0 licensed <https://github.com/jkcclemens/khttp/blob/master/LICENSE>`_ library,
-written in Python, inspired by requests, for human beings.
+written in Kotlin, inspired by requests, for human beings.
 
 Java is bad at HTTP, and, by extension, Kotlin is bad at HTTP. More and more, the need to interact with APIs and perform
 basic HTTP requests shows up in programs, but Java makes a big fuss about it. The tools available in Java were made for
