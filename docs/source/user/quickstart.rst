@@ -120,7 +120,7 @@ If the content is not JSON, an exception will also be thrown.
 
 It should be noted that the success of calls to these properties does **not** indicate the success of the response. Some
 servers may return a JSON object in a failed response (e.g. error details with HTTP 500). Such JSON will be decoded and
-returned. To check that a request is successful, check that ```r.statusCode``` is what you expect.
+returned. To check that a request is successful, check that ``r.statusCode`` is what you expect.
 
 Custom headers
 --------------
