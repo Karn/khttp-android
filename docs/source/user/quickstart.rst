@@ -81,7 +81,8 @@ will enable ``Collection``\ s to be passed.
 
 ::
 
-    println(r.url) // http://httpbin.org/get?key1=value1&key2=value2
+    println(r.url)
+    // http://httpbin.org/get?key1=value1&key2=value2
 
 Response content
 ----------------
@@ -91,7 +92,8 @@ We can read the content of the server’s response. Consider the GitHub timeline
 ::
 
     val r = get("https://api.github.com/events")
-    println(r.text) // [{"repository":{"open_issues":0,"url":"https://github.com/...
+    println(r.text)
+    // [{"repository":{"open_issues":0,"url":"https://github.com/...
 
 When you make a request, khttp makes educated guesses about the encoding of the response based on the HTTP headers. The
 text encoding guessed by khttp is used when you access ``r.text``\ . You can find out what encoding khttp is using, and
@@ -99,7 +101,8 @@ change it, using the ``r.encoding`` property:
 
 ::
 
-    println(r.encoding) // UTF-8
+    println(r.encoding)
+    // UTF-8
     r.encoding = Charsets.ISO_8859_1
 
 If you change the encoding, khttp will use the new value of ``r.encoding`` whenever you call ``r.text``\ . You might
@@ -115,7 +118,8 @@ You can also access the response body as an InputStream, for non-text requests:
 
 ::
 
-    r.raw // InputStream
+    r.raw
+    // InputStream
 
 JSON response content
 ---------------------
@@ -126,7 +130,8 @@ jsonArray.
 ::
 
     val r = get("https://api.github.com/events")
-    println(r.jsonArray) // [{"actor":{"avatar_url":"https://avatars.githubusercontent.com/u/...
+    println(r.jsonArray)
+    // [{"actor":{"avatar_url":"https://avatars.githubusercontent.com/u/...
 
 Note that if you attempt to access jsonObject but the content is an array, an exception will be thrown and vice versa.
 If the content is not JSON, an exception will also be thrown.

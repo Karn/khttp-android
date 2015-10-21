@@ -19,10 +19,6 @@ that have yet to be implemented.
   this must remain the way that khttp works. Simply accessing the ``raw`` property of a request will process the
   request, if no further data is needed.
 
-* **There is no encoding property**
-
-  This is something that needs to be tackled. So far, all requests are assumed to be UTF-8.
-
 * **Some parameters are missing**
 
   The missing parameters from request methods are ``files``, ``proxies``, ``verify``, ``stream``, and ``cert``. These
@@ -64,3 +60,10 @@ very different.
   khttp allows for the setting and retrieving of cookies, and they persist through redirects, if redirects are allowed.
   If a ``POST`` request is made to a login form, and a cookie is set before being redirected back to the homepage, that
   cookie will be available in the homepage response.
+
+* **All HTTP methods are allowed, even ones that don't exist**
+
+  Plain ol' Java limits requests to the HTTP methods that existed at the time of the creation of the HTTP classes. This
+  means that some HTTP methods like PATCH aren't allowed.
+
+  khttp overrides this, allowing any method to be used.

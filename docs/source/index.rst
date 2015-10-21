@@ -22,10 +22,14 @@ module. khttp uses only the ``org.json.json`` library and native Java. There's n
 ::
 
     val r = get("https://api.github.com/user", auth=BasicAuthorization("user", "pass"))
-    r.statusCode // 200
-    r.headers["Content-Type"] // "application/json; charset=utf8"
-    r.text // """{"type": "User"..."""
-    r.jsonObject // org.json.JSONObject
+    r.statusCode
+    // 200
+    r.headers["Content-Type"]
+    // "application/json; charset=utf8"
+    r.text
+    // """{"type": "User"..."""
+    r.jsonObject
+    // org.json.JSONObject
 
 User guide
 ----------
