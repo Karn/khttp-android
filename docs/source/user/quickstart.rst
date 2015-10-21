@@ -114,12 +114,14 @@ encoding.
 Binary response content
 -----------------------
 
-You can also access the response body as an InputStream, for non-text requests:
+You can also access the response body as a ``ByteArray``\ , for non-text requests:
 
 ::
 
-    r.raw
-    // InputStream
+    r.content
+    // ByteArray
+
+The ``gzip`` and ``deflate`` transfer-encodings are automatically decoded for you.
 
 JSON response content
 ---------------------
@@ -139,6 +141,18 @@ If the content is not JSON, an exception will also be thrown.
 It should be noted that the success of calls to these properties does **not** indicate the success of the response. Some
 servers may return a JSON object in a failed response (e.g. error details with HTTP 500). Such JSON will be decoded and
 returned. To check that a request is successful, check that ``r.statusCode`` is what you expect.
+
+
+Raw response content
+--------------------
+
+In the rare case that you’d like to get the raw InputStream response from the server, you can access ``r.raw``\ .
+
+::
+
+    val r = get("https://api.github.com/events")
+    r.raw
+    // InputStream
 
 Custom headers
 --------------

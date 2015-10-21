@@ -29,10 +29,6 @@ that have yet to be implemented.
   There is no unifying JSON interface that both JSONObject and JSONArray implement. Rather than creating a wrapper that
   requires casting and type-checking, there are simply two properties instead of one function.
 
-* **There is no content property**
-
-  Use the ``raw`` property to get an ``InputStream``. Use the ``text`` property to get a ``String``.
-
 * **There is no history property**
 
   This is planned. It should be very easy, due to the manual handling of redirects necessary to handle cookies, since
