@@ -170,3 +170,88 @@ header will be forced to ``application/json``.
 
 khttp does not change behavior based on any specified request headers. It **does** change behavior based on response
 headers.
+
+More complicated POST requests
+------------------------------
+
+Typically, you want to send some form-encoded data — much like an HTML form. To do this, simply pass a Map to the data
+argument. Your Map of data will automatically be form-encoded when the request is made:
+
+::
+
+    val payload = mapOf("key1" to "value1", "key2" to "value2")
+    val r = post("http://httpbin.org/post", data=payload)
+    println(r.text)
+    /*
+    {
+      ...
+      "form": {
+        "key1": "value1",
+        "key2": "value2"
+      },
+      ...
+    }
+    */
+
+There are many times that you want to send data that is not form-encoded. If you pass in any object except for a Map,
+that data will be posted directly (via the ``toString()`` method).
+
+For example, the GitHub API v3 accepts JSON-Encoded POST/PATCH data:
+
+::
+
+    val url = "https://api.github.com/some/endpoint"
+    val payload = mapOf("some" to "data")
+
+    val r = post(url, data=JSONObject(payload))
+
+Instead of encoding the JSON yourself, you can also pass it directly using the ``json`` parameter, and it will be
+encoded automatically:
+
+::
+
+    val url = "https://api.github.com/some/endpoint"
+    val payload = mapOf("some" to "data")
+
+    r = post(url, json=payload)
+
+Response status codes
+---------------------
+
+We can check the response status code:
+
+::
+
+    val r = get("http://httpbin.org/get")
+    r.statusCode
+    // 200
+
+Response headers
+----------------
+
+We can view the server's response headers using a Map:
+
+::
+
+    r.headers
+    // {Server=nginx, Access-Control-Allow-Origin=*, Access-Control-Allow-Credentials=true, Connection=keep-alive, Content-Length=235, Date=Wed, 21 Oct 2015 17:19:06 GMT, Content-Type=application/json}
+
+The Map is special, though: it's made just for HTTP headers. According to
+`RFC 7230 <http://tools.ietf.org/html/rfc7230#section-3.2>`_, HTTP header names are case-insensitive.
+
+So, we can access the headers using any capitalization we want:
+
+::
+
+    headers["Content-Type"]
+    // application/json
+    r.headers.get("content-type")
+    // application/json
+
+It is also special in that the server could have sent the same header multiple times with different values, but khttp
+combines them so they can be represented in the Map within a single mapping, as per
+`RFC 7230 <http://tools.ietf.org/html/rfc7230#section-3.2>`_:
+
+    A recipient MAY combine multiple header fields with the same field name into one "field-name: field-value" pair,
+    without changing the semantics of the message, by appending each subsequent field value to the combined field value
+    in order, separated by a comma.
