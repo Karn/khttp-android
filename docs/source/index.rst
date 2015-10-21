@@ -9,9 +9,9 @@ khttp: HTTP without the bullshit
 khttp is a `Mozilla Public License 2.0 licensed <https://github.com/jkcclemens/khttp/blob/master/LICENSE>`_ library,
 written in Kotlin, inspired by requests, for human beings.
 
-Java is bad at HTTP, and, by extension, Kotlin is bad at HTTP. More and more, the need to interact with APIs and perform
-basic HTTP requests shows up in programs, but Java makes a big fuss about it. The tools available in Java were made for
-yesterday, and they don't match what programmers need today.
+Java is **bad** at HTTP. Really bad. The tools provided are functionally broken. Unfortunately, by extension, Kotlin is
+also bad at HTTP. Yet, more and more, the need to interact with APIs and perform basic HTTP requests shows up in
+programs, but the broken tools in Java makes it a big fuss. This isn't how it should be.
 
 To combat this, libraries like `Unirest <http://unirest.io/java.html>`_ have popped up, but they introduce massive
 amounts of overhead to just make a simple GET request.
