@@ -255,3 +255,66 @@ combines them so they can be represented in the Map within a single mapping, as 
     A recipient MAY combine multiple header fields with the same field name into one "field-name: field-value" pair,
     without changing the semantics of the message, by appending each subsequent field value to the combined field value
     in order, separated by a comma.
+
+Cookies
+-------
+
+If a response contains some Cookies, you can quickly access them:
+
+::
+
+    val url = "http://example.com/some/cookie/setting/url"
+    val r = get(url)
+
+    r.cookies["example_cookie_name']
+    // example_cookie_value
+
+Note that khttp will keep cookies persistent throughout redirects.
+
+To send your own cookies to the server, you can use the ``cookies`` parameter:
+
+::
+
+    val url = "http://httpbin.org/cookies"
+    val cookies = mapOf("cookies_are" to "working")
+    val r = get(url, cookies=cookies)
+    r.text
+    /*
+    {
+      "cookies": {
+        "cookies_are": "working"
+      }
+    }
+    */
+
+Timeouts
+--------
+
+You can tell khttp to stop waiting for a response after a given number of seconds with the ``timeout`` parameter.
+
+::
+
+    get("http://github.com", timeout=0.001).raw
+    /*
+    java.net.SocketTimeoutException: connect timed out
+            at java.net.PlainSocketImpl.socketConnect(Native Method)
+            at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+            at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+            at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+            at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+            at java.net.Socket.connect(Socket.java:589)
+            at sun.net.NetworkClient.doConnect(NetworkClient.java:175)
+            at sun.net.www.http.HttpClient.openServer(HttpClient.java:432)
+            at sun.net.www.http.HttpClient.openServer(HttpClient.java:527)
+            at sun.net.www.http.HttpClient.<init>(HttpClient.java:211)
+            at sun.net.www.http.HttpClient.New(HttpClient.java:308)
+            at sun.net.www.http.HttpClient.New(HttpClient.java:326)
+            at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1168)
+            at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1104)
+            at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:998)
+            at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:932)
+            at me.kyleclemens.khttp.responses.KHttpGenericResponse.openRedirectingConnection(KHttpGenericResponse.kt:30)
+            at me.kyleclemens.khttp.responses.KHttpGenericResponse.getConnection(KHttpGenericResponse.kt:42)
+            at me.kyleclemens.khttp.responses.KHttpGenericResponse.getRaw(KHttpGenericResponse.kt:73)
+    */
+
