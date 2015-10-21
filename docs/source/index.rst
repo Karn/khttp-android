@@ -31,6 +31,19 @@ module. khttp uses only the ``org.json.json`` library and native Java. There's n
     r.jsonObject
     // org.json.JSONObject
 
+Feature support
+---------------
+
+khttp is ready for today's web.
+
+* International domains and URLs
+* Sessions with cookie persistence
+* Basic authentication
+* Elegant key/value cookies
+* Automatic decompression
+* Unicode response bodies
+* Connection timeouts
+
 User guide
 ----------
 
