@@ -93,7 +93,20 @@ We can read the content of the server’s response. Consider the GitHub timeline
     val r = get("https://api.github.com/events")
     println(r.text) // [{"repository":{"open_issues":0,"url":"https://github.com/...
 
-Currently, khttp assumes that all requests and responses are encoded in UTF-8, but encoding support is planned.
+When you make a request, khttp makes educated guesses about the encoding of the response based on the HTTP headers. The
+text encoding guessed by khttp is used when you access ``r.text``\ . You can find out what encoding khttp is using, and
+change it, using the ``r.encoding`` property:
+
+::
+
+    println(r.encoding) // UTF-8
+    r.encoding = Charsets.ISO_8859_1
+
+If you change the encoding, khttp will use the new value of ``r.encoding`` whenever you call ``r.text``\ . You might
+want to do this in any situation where you can apply special logic to work out what the encoding of the content will be.
+For example, HTTP and XML have the ability to specify their encoding in their body. In situations like this, you should
+use ``r.raw`` to find the encoding, and then set ``r.encoding``\ . This will let you use ``r.text`` with the correct
+encoding.
 
 Binary response content
 -----------------------
