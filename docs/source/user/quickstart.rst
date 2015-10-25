@@ -309,6 +309,16 @@ For example, GitHub redirects all HTTP requests to HTTPS:
     r.history
     // [<Response [301]>]
 
+If you want to disable redirection handling, you can do so with the ``allowRedirects`` parameter.
+
+::
+
+    val r = get("http://github.com", allowRedirects = false)
+    r.statusCode
+    // 301
+    r.history
+    // []
+
 Timeouts
 --------
 
