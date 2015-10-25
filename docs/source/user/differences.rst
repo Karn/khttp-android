@@ -13,12 +13,6 @@ Notable variations from requests
 khttp attempts to be as close to the requests module as possible, but there are some variations, especially in features
 that have yet to be implemented.
 
-* **Requests are not actually made until a property is accessed**
-
-  This is intentional. Due to the way that khttp allows ``initializers`` to set up a connection before it takes place,
-  this must remain the way that khttp works. Simply accessing the ``raw`` property of a request will process the
-  request, if no further data is needed.
-
 * **Some parameters are missing**
 
   The missing parameters from request methods are ``files``, ``proxies``, ``verify``, ``stream``, and ``cert``. These
@@ -28,11 +22,6 @@ that have yet to be implemented.
 
   There is no unifying JSON interface that both JSONObject and JSONArray implement. Rather than creating a wrapper that
   requires casting and type-checking, there are simply two properties instead of one function.
-
-* **There is no history property**
-
-  This is planned. It should be very easy, due to the manual handling of redirects necessary to handle cookies, since
-  Java is just awful at HTTP.
 
 Notable variations from plain ol' Java
 --------------------------------------

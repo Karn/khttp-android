@@ -287,6 +287,28 @@ To send your own cookies to the server, you can use the ``cookies`` parameter:
     }
     */
 
+Redirection and history
+-----------------------
+
+By default khttp will perform location redirection for all verbs. HEAD will redirect, but this is planned to be changed.
+
+We can use the ``history`` property of the KHttpResponse object to track redirection.
+
+The ``history`` list contains the ``KHttpResponse`` objects that were created in order to complete the request. The list
+is sorted from the oldest to the most recent response.
+
+For example, GitHub redirects all HTTP requests to HTTPS:
+
+::
+
+    val r = get("http://github.com")
+    r.url
+    // https://github.com/
+    r.statusCode
+    // 200
+    r.history
+    // [<Response [301]>]
+
 Timeouts
 --------
 
