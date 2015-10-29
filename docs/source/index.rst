@@ -31,6 +31,8 @@ module. khttp uses only the ``org.json.json`` library and native Java. There's n
     r.jsonObject
     // org.json.JSONObject
 
+See `similar code, without khttp <https://gist.github.com/jkcclemens/16fe8e04eab2c230f1ce>`_.
+
 Feature support
 ---------------
 
