@@ -326,7 +326,7 @@ You can tell khttp to stop waiting for a response after a given number of second
 
 ::
 
-    get("http://github.com", timeout=0.001).raw
+    get("http://github.com", timeout=0.001)
     /*
     java.net.SocketTimeoutException: connect timed out
             at java.net.PlainSocketImpl.socketConnect(Native Method)
@@ -345,8 +345,10 @@ You can tell khttp to stop waiting for a response after a given number of second
             at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1104)
             at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:998)
             at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:932)
-            at khttp.responses.GenericResponse.openRedirectingConnection(GenericResponse.kt:30)
-            at khttp.responses.GenericResponse.getConnection(GenericResponse.kt:42)
-            at khttp.responses.GenericResponse.getRaw(GenericResponse.kt:73)
+            at khttp.responses.KHttpGenericResponse.openRedirectingConnection(KHttpGenericResponse.kt:35)
+            at khttp.responses.KHttpGenericResponse.getConnection(KHttpGenericResponse.kt:73)
+            at khttp.KHttp.request(KHttp.kt:53)
+            at khttp.KHttp.get(KHttp.kt:22)
+            at khttp.KHttp.get$default(KHttp.kt:21)
     */
 
