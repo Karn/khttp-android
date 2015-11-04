@@ -19,7 +19,7 @@ let's import that.
 
 ::
 
-    import me.kyleclemens.khttp.get
+    import khttp.get
 
 Now, let's try to get a webpage. For example, let's get GitHub's public timeline.
 
@@ -27,21 +27,21 @@ Now, let's try to get a webpage. For example, let's get GitHub's public timeline
 
     val r = get("https://api.github.com/events")
 
-Now, we have a KHttpResponse object called ``r``. We can get all the information we need from this object.
+Now, we have a Response object called ``r``. We can get all the information we need from this object.
 
 khttp's API is straightforward, so all forms of HTTP requests are pretty obvious. For example, here's a quick POST
 request.
 
 ::
 
-    import me.kyleclemens.khttp.post
+    import khttp.post
     post("http://httpbin.org/post", data = mapOf("key" to "value"))
 
 Easy. khttp supports every other HTTP request, as well.
 
 ::
 
-    import me.kyleclemens.khttp.*
+    import khttp.*
     var r = put("http://httpbin.org/put", data = mapOf("key" to "value"))
     r = delete("http://httpbin.org/delete")
     r = head("http://httpbin.org/get")
@@ -51,7 +51,7 @@ If, for some reason, you need a nonstandard request type, that's supported too.
 
 ::
 
-    import me.kyleclemens.khttp.request
+    import khttp.request
     val r = request("NONSTANDARD", "http://example.com")
 
 *Note:* From here on out, the import statements are going to be dropped from the code snippets. They should all be easy
@@ -292,9 +292,9 @@ Redirection and history
 
 By default khttp will perform location redirection for all verbs. HEAD will redirect, but this is planned to be changed.
 
-We can use the ``history`` property of the KHttpResponse object to track redirection.
+We can use the ``history`` property of the Response object to track redirection.
 
-The ``history`` list contains the ``KHttpResponse`` objects that were created in order to complete the request. The list
+The ``history`` list contains the ``Response`` objects that were created in order to complete the request. The list
 is sorted from the oldest to the most recent response.
 
 For example, GitHub redirects all HTTP requests to HTTPS:
@@ -345,8 +345,8 @@ You can tell khttp to stop waiting for a response after a given number of second
             at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1104)
             at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:998)
             at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:932)
-            at me.kyleclemens.khttp.responses.KHttpGenericResponse.openRedirectingConnection(KHttpGenericResponse.kt:30)
-            at me.kyleclemens.khttp.responses.KHttpGenericResponse.getConnection(KHttpGenericResponse.kt:42)
-            at me.kyleclemens.khttp.responses.KHttpGenericResponse.getRaw(KHttpGenericResponse.kt:73)
+            at khttp.responses.GenericResponse.openRedirectingConnection(GenericResponse.kt:30)
+            at khttp.responses.GenericResponse.getConnection(GenericResponse.kt:42)
+            at khttp.responses.GenericResponse.getRaw(GenericResponse.kt:73)
     */
 
