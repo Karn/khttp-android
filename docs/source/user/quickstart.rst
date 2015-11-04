@@ -290,7 +290,8 @@ To send your own cookies to the server, you can use the ``cookies`` parameter:
 Redirection and history
 -----------------------
 
-By default khttp will perform location redirection for all verbs. HEAD will redirect, but this is planned to be changed.
+By default khttp will perform location redirection for all verbs except for HEAD. If redirect for HEAD requests are
+desired, you can set the ``allowRedirects`` parameter in the request to ``true``.
 
 We can use the ``history`` property of the Response object to track redirection.
 
