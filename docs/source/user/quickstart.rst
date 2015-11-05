@@ -228,6 +228,76 @@ encoded automatically:
 
     r = post(url, json=payload)
 
+POST a multipart-encoded file
+-----------------------------
+
+khttp makes it simple to upload multipart-encoded files:
+
+::
+
+    val url = "http://httpbin.org/post"
+    val files = listOf(File("report.xls").fileLike())
+
+    val r = post(url, files = files)
+    r.text
+    /*
+    {
+      ...
+      "files": {
+        "report.xls": "<censored...binary...data>"
+      },
+      ...
+    }
+    */
+
+You can set the filename explicitly:
+
+::
+
+    val url = "http://httpbin.org/post"
+    val files = listOf(File("report.xls").fileLike(name = "best_report.xls"))
+
+    val r = post(url, files = files)
+    r.text
+    /*
+    {
+      ...
+      "files": {
+        "best_report.xls": "<censored...binary...data>"
+      },
+      ...
+    }
+    */
+
+If you want, you can send strings to be received as files:
+
+::
+
+    val url = "http://httpbin.org/post"
+    val files = listOf("some,data,to,send\nanother,row,to,send\n".fileLike(name = "report.csv"))
+
+    val r = post(url, files = files)
+    r.text
+    /*
+    {
+      ...
+      "files": {
+        "report.csv": "some,data,to,send\nanother,row,to,send\n"
+      },
+      ...
+    }
+    */
+
+The ``files`` parameter is a list of ``FileLike`` objects. These objects support all of the methods of uploading files
+available in requests, but they have a slightly different syntax to be more statically-typed.
+
+The ``fileLike(name: String = ...)`` extension function is available on ``File``\ , ``Path`` \, and ``String``\ . This
+extension function will create ``FileLike`` objects in a convenient manner. You can also use the ``FileLike``
+constructor to create a suitable object.
+
+In the event that you are posting a very large file as a multipart/form-data request, you may want to stream the
+request. By default, khttp does not support this.
+
 Response status codes
 ---------------------
 
