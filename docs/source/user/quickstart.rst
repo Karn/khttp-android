@@ -146,13 +146,26 @@ returned. To check that a request is successful, check that ``r.statusCode`` is 
 Raw response content
 --------------------
 
-In the rare case that you’d like to get the raw InputStream response from the server, you can access ``r.raw``\ .
+In the rare case that you’d like to get the raw InputStream response from the server, you can access ``r.raw``\ . If you
+want to do this, make sure you set ``stream`` to ``true`` in your initial request. Once you do, you can do this:
 
 ::
 
-    val r = get("https://api.github.com/events")
+    val r = get("https://api.github.com/events", stream=true)
     r.raw
     // InputStream
+    r.raw.read()
+    // 91
+
+In general, however, you should use a pattern like this to save what is being streamed to a file:
+
+::
+
+    for (chunk in r.contentIterator(chunkSize)) {
+        file.appendBytes(chunk)
+    }
+
+When streaming a download, the above is the preferred and recommended way to retrieve the content.
 
 Custom headers
 --------------
