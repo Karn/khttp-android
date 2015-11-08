@@ -15,8 +15,8 @@ that have yet to be implemented.
 
 * **Some parameters are missing**
 
-  The missing parameters from request methods are ``files``, ``proxies``, ``verify``, and ``cert``. These are planned
-  for implementation.
+  The missing parameters from request methods are ``proxies``, ``verify``, and ``cert``. These are planned for
+  implementation.
 
 * **The json() function is split into two properties: jsonObject and jsonArray**
 
