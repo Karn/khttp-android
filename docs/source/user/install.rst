@@ -34,3 +34,21 @@ Add the dependency
 	</dependency>
 
 *As khttp has no official releases or tags at the moment, JitPack uses -SNAPSHOT to denote the latest commit.*
+
+Get the code
+------------
+
+khttp is actively developed on GitHub, where the code is `always available <https://github.com/jkcclemens/khttp>`_.
+
+You can either clone the public repository::
+
+    $ git clone git://github.com/jkcclemens/khttp.git
+
+Download the `tarball <https://github.com/jkcclemens/khttp/tarball/master>`_::
+
+    $ curl -OL https://github.com/jkcclemens/khttp/tarball/master
+
+Or, download the `zipball <https://github.com/jkcclemens/khttp/zipball/master>`_::
+
+    $ curl -OL https://github.com/jkcclemens/khttp/zipball/master
+
