@@ -13,49 +13,47 @@ import khttp.structures.maps.CaseInsensitiveMutableMap
 import khttp.structures.parameters.Parameters
 import org.json.JSONArray
 import org.json.JSONObject
-import org.json.JSONWriter
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
-import java.io.StringWriter
 import java.net.IDN
 import java.net.URI
 import java.net.URL
 import java.net.URLDecoder
-import java.util.UUID
+import java.util.*
 
 class GenericRequest internal constructor(
-    override val method: String,
-    url: String,
-    override val params: Map<String, String>,
-    headers: Map<String, String?>,
-    data: Any?,
-    override val json: Any?,
-    override val auth: Authorization?,
-    override val cookies: Map<String, String>?,
-    override val timeout: Double,
-    allowRedirects: Boolean?,
-    override val stream: Boolean,
-    override val files: List<FileLike>
+        override val method: String,
+        url: String,
+        override val params: Map<String, String>,
+        headers: Map<String, String?>,
+        data: Any?,
+        override val json: Any?,
+        override val auth: Authorization?,
+        override val cookies: Map<String, String>?,
+        override val timeout: Double,
+        allowRedirects: Boolean?,
+        override val stream: Boolean,
+        override val files: List<FileLike>
 ) : Request {
 
     companion object {
         val DEFAULT_HEADERS = mapOf(
-            "Accept" to "*/*",
-            "Accept-Encoding" to "gzip, deflate",
-            "User-Agent" to "khttp/1.0.0-SNAPSHOT"
+                "Accept" to "*/*",
+                "Accept-Encoding" to "gzip, deflate",
+                "User-Agent" to "khttp/1.0.0-SNAPSHOT"
         )
         val DEFAULT_DATA_HEADERS = mapOf(
-            "Content-Type" to "text/plain"
+                "Content-Type" to "text/plain"
         )
         val DEFAULT_FORM_HEADERS = mapOf(
-            "Content-Type" to "application/x-www-form-urlencoded"
+                "Content-Type" to "application/x-www-form-urlencoded"
         )
         val DEFAULT_UPLOAD_HEADERS = mapOf(
-            "Content-Type" to "multipart/form-data; boundary=%s"
+                "Content-Type" to "multipart/form-data; boundary=%s"
         )
         val DEFAULT_JSON_HEADERS = mapOf(
-            "Content-Type" to "application/json"
+                "Content-Type" to "application/json"
         )
     }
 
@@ -73,7 +71,8 @@ class GenericRequest internal constructor(
                 // If we have no requestData and no files, there is no body
                 if (requestData == null && files.isEmpty()) {
                     this._body = ByteArray(0)
-                    return this._body ?: throw IllegalStateException("Set to null by another thread")
+                    return this._body
+                            ?: throw IllegalStateException("Set to null by another thread")
                 }
                 val data: Any? = if (requestData != null) {
                     if (requestData is Map<*, *> && requestData !is Parameters) {
@@ -172,25 +171,12 @@ class GenericRequest internal constructor(
         } else if (any is Collection<*>) {
             return JSONArray(any).toString()
         } else if (any is Iterable<*>) {
-            return any.withJSONWriter { jsonWriter, _ ->
-                jsonWriter.array()
-                for (thing in any) {
-                    jsonWriter.value(thing)
-                }
-                jsonWriter.endArray()
-            }
+            return JSONArray(any).toString()
         } else if (any is Array<*>) {
             return JSONArray(any).toString()
         } else {
             throw IllegalArgumentException("Could not coerce ${any.javaClass.simpleName} to JSON.")
         }
-    }
-
-    private fun <T> T.withJSONWriter(converter: (JSONWriter, T) -> Unit): String {
-        val stringWriter = StringWriter()
-        val writer = JSONWriter(stringWriter)
-        converter(writer, this)
-        return stringWriter.toString()
     }
 
     private fun URL.toIDN(): URL {

@@ -1,0 +1,55 @@
+/*
+ * Notify Configuration.
+ *
+ * Format adapted from Uber's AutoDispose library.
+ * https://github.com/uber/AutoDispose/blob/7ab7958914699a7a72e43bc1399dfa66ade227cb/gradle/dependencies.gradle
+ */
+
+
+def versions = [
+        kotlin: '1.3.11',
+        core: '1.0.1',
+        appcompat: '1.0.2',
+
+        jacoco: '0.8.2',
+        dokka: '0.9.17'
+]
+
+def build = [
+        compileSdk: 28,
+        targetSdk: 28,
+        minSdk: 19,
+
+        jacocoAgentVersion: versions.jacoco,
+
+        gradle: [
+                androidPlugin: 'com.android.tools.build:gradle:3.2.1',
+                androidMaven: 'com.github.dcendents:android-maven-gradle-plugin:2.0',
+                kotlin: "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}",
+                jacoco: "org.jacoco:org.jacoco.core:${versions.jacoco}",
+                dokka: "org.jetbrains.dokka:dokka-android-gradle-plugin:${versions.dokka}"
+        ]
+]
+
+def dependencies = [
+        kotlin: [
+                stdlib : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
+                reflect: "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
+        ],
+        androidx: [
+                core: "androidx.core:core:${versions.core}",
+                appcompat: "androidx.appcompat:appcompat:${versions.appcompat}"
+        ]
+]
+
+def testDependencies = [
+        instrumentationRunner: 'androidx.test.runner.AndroidJUnitRunner',
+        junit: 'junit:junit:4.12',
+        robolectric: 'org.robolectric:robolectric:4.0'
+]
+
+ext.config = [
+        "deps"    : dependencies,
+        "testDeps": testDependencies,
+        "build"   : build
+]
