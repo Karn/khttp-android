@@ -1,44 +1,38 @@
-# khttp
-[![Travis CI](https://img.shields.io/travis/jkcclemens/khttp/master.svg)](https://travis-ci.org/jkcclemens/khttp)
-[![Codecov](https://img.shields.io/codecov/c/github/jkcclemens/khttp.svg)](https://codecov.io/github/jkcclemens/khttp)
-[![VersionEye](https://www.versioneye.com/user/projects/56243e0a36d0ab0021000bf4/badge.svg)](https://www.versioneye.com/user/projects/56243e0a36d0ab0021000bf4)
-[![License](https://img.shields.io/github/license/jkcclemens/khttp.svg)](https://github.com/jkcclemens/khttp/blob/master/LICENSE)
-[![Gratipay](https://img.shields.io/gratipay/jkcclemens.svg)](https://gratipay.com/~jkcclemens/)
-[![Documentation status](https://readthedocs.org/projects/khttp/badge/?version=latest)](http://khttp.readthedocs.org/en/latest/?badge=latest)
+![kHttp](./docs/assets/khttp-android-logo.svg)
 
-khttp is a simple library for HTTP requests in Kotlin. It functions similarly to Python's `requests` module.
+## kHttp Android
+Lightweight HTTP requests library for Android.
 
-```kotlin
-import khttp.get
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.3.11-blue.svg?style=flat-square)](http://kotlinlang.org)
+[![Build Status](https://img.shields.io/travis/Karn/khttp-android.svg?style=flat-square)](https://travis-ci.org/Karn/khttp-android)
+[![Codecov](https://img.shields.io/codecov/c/github/karn/khttp-android.svg?style=flat-square)](https://codecov.io/gh/Karn/khttp-android)
+[![GitHub (pre-)release](https://img.shields.io/github/release/karn/khttp-android/all.svg?style=flat-square)
+](./../../releases)
 
-fun main(args: Array<out String>) {
-    // Get our IP
-    println(get("http://httpbin.org/ip").jsonObject.getString("origin"))
-    // Get our IP in a simpler way
-    println(get("http://icanhazip.com").text)
+kHttp Android is similar to Python's `requests` module. This library has been adapted from [kHttp by jkcclemens](https://github.com/jkcclemens/khttp) which is no longer maintained.
+
+#### GETTING STARTED
+kHttp Android (pre-)releases are available via JitPack. It is recommended that  a specific release version is selected when using the library in production as there may be breaking changes at anytime.
+
+> **Tip:** Test out the canary channel to try out features by using the latest develop snapshot; `develop-SNAPSHOT`.
+
+```Groovy
+// Project level build.gradle
+// ...
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+// ...
+
+// Module level build.gradle
+dependencies {
+    // Replace version with release version, e.g. 1.0.0-alpha, -SNAPSHOT
+    implementation "io.karn:khttp-android:[VERSION]"
 }
 ```
 
-## Dependency
-
-### Stable
-
-Stable releases are hosted on [JCenter](https://bintray.com/bintray/jcenter).
-
-```xml
-<repository>
-  <id>jcenter</id>
-  <url>http://jcenter.bintray.com/</url>
-</repository>
-<!-- ... -->
-<dependency>
-  <groupId>khttp</groupId>
-  <artifactId>khttp</artifactId>
-  <version>0.1.0</version>
-</dependency>
-```
-
-### Development
-
-Development builds are currently available through [JitPack](https://jitpack.io/#jkcclemens/khttp). Snapshot builds may
-eventually be hosted on [OJO](https://oss.jfrog.org/), but are not currently available there.
+#### CONTRIBUTING
+There are many ways to [contribute](./.github/CONTRIBUTING.md), you can
+- submit bugs,
+- help track issues,
+- review code changes.

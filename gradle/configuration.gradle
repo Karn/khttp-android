@@ -1,5 +1,5 @@
 /*
- * Notify Configuration.
+ * Configuration.
  *
  * Format adapted from Uber's AutoDispose library.
  * https://github.com/uber/AutoDispose/blob/7ab7958914699a7a72e43bc1399dfa66ade227cb/gradle/dependencies.gradle
