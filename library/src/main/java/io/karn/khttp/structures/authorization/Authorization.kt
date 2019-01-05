@@ -8,5 +8,4 @@ package khttp.structures.authorization
 interface Authorization {
 
     val header: Pair<String, String>
-
 }
