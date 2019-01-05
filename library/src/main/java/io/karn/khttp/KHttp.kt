@@ -7,13 +7,24 @@
 
 package khttp
 
-import kotlin.concurrent.thread
-
 import khttp.requests.GenericRequest
 import khttp.responses.GenericResponse
 import khttp.responses.Response
 import khttp.structures.authorization.Authorization
 import khttp.structures.files.FileLike
+import kotlin.concurrent.thread
+
+class KHttpConfig {
+
+    companion object {
+
+        internal val interceptors: ArrayList<((Response) -> Unit)> = ArrayList()
+
+        fun attachInterceptor(interceptor: (Response) -> Unit) {
+            interceptors.add(interceptor)
+        }
+    }
+}
 
 /**
  * The default number of seconds to wait before timing out a request.
@@ -57,12 +68,16 @@ fun put(url: String, headers: Map<String, String?> = mapOf(), params: Map<String
 
 @JvmOverloads
 fun request(method: String, url: String, headers: Map<String, String?> = mapOf(), params: Map<String, String> = mapOf(), data: Any? = null, json: Any? = null, auth: Authorization? = null, cookies: Map<String, String>? = null, timeout: Double = DEFAULT_TIMEOUT, allowRedirects: Boolean? = null, stream: Boolean = false, files: List<FileLike> = listOf()): Response {
-    return GenericResponse(GenericRequest(method, url, params, headers, data, json, auth, cookies, timeout, allowRedirects, stream, files)).run {
+    val response = GenericResponse(GenericRequest(method, url, params, headers, data, json, auth, cookies, timeout, allowRedirects, stream, files)).run {
         this.init()
         this._history.last().apply {
             this@run._history.remove(this)
         }
     }
+
+    KHttpConfig.interceptors.forEach { response.apply(it) }
+
+    return response
 }
 
 /**
