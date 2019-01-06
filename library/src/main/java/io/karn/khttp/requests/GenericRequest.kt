@@ -20,7 +20,7 @@ import java.net.IDN
 import java.net.URI
 import java.net.URL
 import java.net.URLDecoder
-import java.util.*
+import java.util.UUID
 
 class GenericRequest internal constructor(
         override val method: String,
@@ -164,16 +164,14 @@ class GenericRequest internal constructor(
     }
 
     private fun coerceToJSON(any: Any): String {
-        if (any is JSONObject || any is JSONArray) {
-            return any.toString()
+        return if (any is JSONObject || any is JSONArray) {
+            any.toString()
         } else if (any is Map<*, *>) {
-            return JSONObject(any.mapKeys { it.key.toString() }).toString()
+            JSONObject(any.mapKeys { it.key.toString() }).toString()
         } else if (any is Collection<*>) {
-            return JSONArray(any).toString()
-        } else if (any is Iterable<*>) {
-            return JSONArray(any).toString()
-        } else if (any is Array<*>) {
-            return JSONArray(any).toString()
+            JSONArray(any).toString()
+        } else if (any is Iterable<*> || any is Array<*>) {
+            JSONArray(any).toString()
         } else {
             throw IllegalArgumentException("Could not coerce ${any.javaClass.simpleName} to JSON.")
         }
