@@ -14,7 +14,9 @@ def versions = [
         jacoco: '0.8.2',
         dokka: '0.9.17',
 
-        spek: '1.1.0'
+        spek: '1.1.0',
+
+        rxjava: '2.1.10'
 ]
 
 def build = [
@@ -39,7 +41,7 @@ def dependencies = [
                 reflect: "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
         ],
         rx: [
-                kotlin: "io.reactivex.rxjava2:rxjava:2.1.10"
+                kotlin: "io.reactivex.rxjava2:rxjava:${versions.rxjava}"
         ]
 ]
 
