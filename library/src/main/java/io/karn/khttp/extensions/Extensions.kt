@@ -49,18 +49,18 @@ fun ByteArray.splitLines(): List<ByteArray> {
             continue
         }
         if (byte == '\n'.toByte()) {
-            lines.add(this.sliceArray(lastSplit..i - 1))
+            lines.add(this.sliceArray(lastSplit until i))
             lastSplit = i + 1
         } else if (byte == '\r'.toByte() && i + 1 < this.size && this[i + 1] == '\n'.toByte()) {
             skip = 1
-            lines.add(this.sliceArray(lastSplit..i - 1))
+            lines.add(this.sliceArray(lastSplit until i))
             lastSplit = i + 2
         } else if (byte == '\r'.toByte()) {
-            lines.add(this.sliceArray(lastSplit..i - 1))
+            lines.add(this.sliceArray(lastSplit until i))
             lastSplit = i + 1
         }
     }
-    lines += this.sliceArray(lastSplit..this.size - 1)
+    lines += this.sliceArray(lastSplit until this.size)
     return lines
 }
 
@@ -68,18 +68,18 @@ fun ByteArray.split(delimiter: ByteArray): List<ByteArray> {
     val lines = arrayListOf<ByteArray>()
     var lastSplit = 0
     var skip = 0
-    for (i in 0..this.size - 1) {
+    for (i in 0 until this.size) {
         if (skip > 0) {
             skip--
             continue
         }
-        if (this.sliceArray(i..i + delimiter.size - 1).toList() == delimiter.toList()) {
+        if (this.sliceArray(i until i + delimiter.size).toList() == delimiter.toList()) {
             skip = delimiter.size
-            lines += this.sliceArray(lastSplit..i - 1)
+            lines += this.sliceArray(lastSplit until i)
             lastSplit = i + delimiter.size
         }
     }
-    lines += this.sliceArray(lastSplit..this.size - 1)
+    lines += this.sliceArray(lastSplit until this.size)
     return lines
 }
 

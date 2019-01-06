@@ -18,5 +18,4 @@ class CaseInsensitiveMap<out V>(private val map: Map<String, V>) : Map<String, V
     override fun toString(): String {
         return this.map.toString()
     }
-
 }

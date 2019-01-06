@@ -5,16 +5,24 @@
  */
 package io.karn.khttp.structures.cookie
 
-data class Cookie(val key: String, val value: Any, val attributes: Map<String, Any?> = mapOf()) {
+data class Cookie(
+        val key: String,
+        val value: Any,
+        val attributes: Map<String, Any?> = mapOf()
+) {
 
     companion object {
+
         private fun String.toCookie(): Cookie {
             val split = this.split("=", limit = 2)
             require(split.size == 2) { "\"$this\" is not a cookie." }
+
             val key = split[0].trim()
             val valueSplit = split[1].split(";")
             val value = valueSplit[0].trim()
-            val attributes = if (valueSplit.size < 2) mapOf<String, Any?>() else {
+            val attributes = if (valueSplit.size < 2)
+                mapOf<String, Any?>()
+            else {
                 valueSplit.subList(1, valueSplit.size).associate { it.split("=")[0].trim() to it.split("=").getOrNull(1)?.trim() }
             }
             return Cookie(key, value, attributes)

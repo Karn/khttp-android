@@ -10,6 +10,7 @@ import java.util.HashMap
 class CookieJar(vararg val cookies: Cookie = arrayOf()) : MutableMap<String, String> by (cookies.associate { it.key to it.valueWithAttributes } as HashMap<String, String>) {
 
     companion object {
+
         private fun Map<String, Any>.toCookieArray(): Array<Cookie> {
             return this.map {
                 val valueList = it.value.toString().split(";").map(String::trim)

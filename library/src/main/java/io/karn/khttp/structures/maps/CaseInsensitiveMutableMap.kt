@@ -23,18 +23,17 @@ class CaseInsensitiveMutableMap<V>(private val map: MutableMap<String, V>) : Mut
 
     override fun put(key: String, value: V): V? {
         val old = this.remove(key)
-        this.map.put(key, value)
+        this.map[key] = value
         return old
     }
 
     override fun putAll(from: Map<out String, V>) {
         for ((key, value) in from) {
-            this.put(key, value)
+            this[key] = value
         }
     }
 
     override fun toString(): String {
         return this.map.toString()
     }
-
 }
