@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package khttp.structures.cookie
+package io.karn.khttp.structures.cookie
 
 data class Cookie(val key: String, val value: Any, val attributes: Map<String, Any?> = mapOf()) {
 

@@ -5,13 +5,13 @@
  */
 @file:JvmName("KHttp")
 
-package khttp
+package io.karn.khttp
 
-import khttp.requests.GenericRequest
-import khttp.responses.GenericResponse
-import khttp.responses.Response
-import khttp.structures.authorization.Authorization
-import khttp.structures.files.FileLike
+import io.karn.khttp.requests.GenericRequest
+import io.karn.khttp.responses.GenericResponse
+import io.karn.khttp.responses.Response
+import io.karn.khttp.structures.authorization.Authorization
+import io.karn.khttp.structures.files.FileLike
 
 class KHttpConfig {
 

@@ -3,10 +3,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package khttp
+package io.karn.khttp
 
-import khttp.extensions.fileLike
-import khttp.helpers.StringIterable
+import io.karn.khttp.extensions.fileLike
+import io.karn.khttp.helpers.StringIterable
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
@@ -80,7 +80,7 @@ class KHttpPostSpec : Spek({
             val json = request.jsonObject
             val returnedJSON = json.getJSONArray("json")
             it("should be equal") {
-                assertEquals(jsonArray.string, String(returnedJSON.mapIndexed { i, any -> returnedJSON.getString(i)[0] }.toCharArray()))
+                assertEquals(jsonArray.string, returnedJSON.toString())
             }
         }
     }

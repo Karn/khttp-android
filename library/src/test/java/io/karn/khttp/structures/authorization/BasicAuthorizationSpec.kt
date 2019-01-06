@@ -3,7 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package khttp.structures.authorization
+package io.karn.khttp.structures.authorization
 
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given

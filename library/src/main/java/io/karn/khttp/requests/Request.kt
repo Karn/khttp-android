@@ -3,10 +3,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package khttp.requests
+package io.karn.khttp.requests
 
-import khttp.structures.authorization.Authorization
-import khttp.structures.files.FileLike
+import io.karn.khttp.structures.authorization.Authorization
+import io.karn.khttp.structures.files.FileLike
 
 interface Request {
 

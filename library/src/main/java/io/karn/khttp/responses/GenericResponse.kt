@@ -3,16 +3,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package khttp.responses
+package io.karn.khttp.responses
 
-import khttp.extensions.getSuperclasses
-import khttp.extensions.split
-import khttp.extensions.splitLines
-import khttp.requests.GenericRequest
-import khttp.requests.Request
-import khttp.structures.cookie.Cookie
-import khttp.structures.cookie.CookieJar
-import khttp.structures.maps.CaseInsensitiveMap
+import io.karn.khttp.extensions.getSuperclasses
+import io.karn.khttp.extensions.split
+import io.karn.khttp.extensions.splitLines
+import io.karn.khttp.requests.GenericRequest
+import io.karn.khttp.requests.Request
+import io.karn.khttp.structures.cookie.Cookie
+import io.karn.khttp.structures.cookie.CookieJar
+import io.karn.khttp.structures.maps.CaseInsensitiveMap
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
@@ -163,7 +163,7 @@ class GenericResponse internal constructor(override val request: Request) : Resp
             if (this._connection == null) {
                 this._connection = URL(this.request.url).openRedirectingConnection(this._history.firstOrNull()
                         ?: this.apply { this._history.add(this) }) {
-                    (GenericResponse.defaultStartInitializers + this@GenericResponse.initializers + GenericResponse.defaultEndInitializers).forEach { it(this@GenericResponse, this) }
+                    (defaultStartInitializers + this@GenericResponse.initializers + defaultEndInitializers).forEach { it(this@GenericResponse, this) }
                 }
             }
             return this._connection ?: throw IllegalStateException("Set to null by another thread")

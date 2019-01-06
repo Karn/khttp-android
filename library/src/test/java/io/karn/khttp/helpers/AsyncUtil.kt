@@ -3,9 +3,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package khttp.helpers
+package io.karn.khttp.helpers
 
-import khttp.responses.Response
+import io.karn.khttp.responses.Response
 
 /**
  * Utility to aid in executing asynchronous tests in Spek

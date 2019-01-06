@@ -12,7 +12,9 @@ def versions = [
         appcompat: '1.0.2',
 
         jacoco: '0.8.2',
-        dokka: '0.9.17'
+        dokka: '0.9.17',
+
+        spek: '1.1.0'
 ]
 
 def build = [
@@ -35,13 +37,20 @@ def dependencies = [
         kotlin: [
                 stdlib : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
                 reflect: "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
+        ],
+        rx: [
+                kotlin: "io.reactivex.rxjava2:rxjava:2.1.10"
         ]
 ]
 
 def testDependencies = [
         instrumentationRunner: 'androidx.test.runner.AndroidJUnitRunner',
         junit: 'junit:junit:4.12',
-        robolectric: 'org.robolectric:robolectric:4.0'
+        kotlin_test: "org.jetbrains.kotlin:kotlin-test:${versions.kotlin}",
+        spek: [
+                api: "org.jetbrains.spek:spek-api:${versions.spek}",
+                junit: "org.jetbrains.spek:spek-junit-platform-engine:${versions.spek}"
+        ]
 ]
 
 ext.config = [

@@ -3,14 +3,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package khttp.requests
+package io.karn.khttp.requests
 
-import khttp.extensions.putAllIfAbsentWithNull
-import khttp.extensions.writeAndFlush
-import khttp.structures.authorization.Authorization
-import khttp.structures.files.FileLike
-import khttp.structures.maps.CaseInsensitiveMutableMap
-import khttp.structures.parameters.Parameters
+import io.karn.khttp.extensions.putAllIfAbsentWithNull
+import io.karn.khttp.extensions.writeAndFlush
+import io.karn.khttp.structures.authorization.Authorization
+import io.karn.khttp.structures.files.FileLike
+import io.karn.khttp.structures.maps.CaseInsensitiveMutableMap
+import io.karn.khttp.structures.parameters.Parameters
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
@@ -138,18 +138,18 @@ class GenericRequest internal constructor(
             this.data = data
             if (data != null && this.files.isEmpty()) {
                 if (data is Map<*, *>) {
-                    mutableHeaders.putAllIfAbsentWithNull(GenericRequest.DEFAULT_FORM_HEADERS)
+                    mutableHeaders.putAllIfAbsentWithNull(DEFAULT_FORM_HEADERS)
                 } else {
-                    mutableHeaders.putAllIfAbsentWithNull(GenericRequest.DEFAULT_DATA_HEADERS)
+                    mutableHeaders.putAllIfAbsentWithNull(DEFAULT_DATA_HEADERS)
                 }
             }
         } else {
             this.data = this.coerceToJSON(json)
-            mutableHeaders.putAllIfAbsentWithNull(GenericRequest.DEFAULT_JSON_HEADERS)
+            mutableHeaders.putAllIfAbsentWithNull(DEFAULT_JSON_HEADERS)
         }
-        mutableHeaders.putAllIfAbsentWithNull(GenericRequest.DEFAULT_HEADERS)
+        mutableHeaders.putAllIfAbsentWithNull(DEFAULT_HEADERS)
         if (this.files.isNotEmpty()) {
-            mutableHeaders.putAllIfAbsentWithNull(GenericRequest.DEFAULT_UPLOAD_HEADERS)
+            mutableHeaders.putAllIfAbsentWithNull(DEFAULT_UPLOAD_HEADERS)
             if ("Content-Type" in mutableHeaders) {
                 mutableHeaders["Content-Type"] = mutableHeaders["Content-Type"]?.format(UUID.randomUUID().toString().replace("-", ""))
             }
@@ -168,8 +168,6 @@ class GenericRequest internal constructor(
             any.toString()
         } else if (any is Map<*, *>) {
             JSONObject(any.mapKeys { it.key.toString() }).toString()
-        } else if (any is Collection<*>) {
-            JSONArray(any).toString()
         } else if (any is Iterable<*> || any is Array<*>) {
             JSONArray(any).toString()
         } else {
@@ -179,11 +177,9 @@ class GenericRequest internal constructor(
 
     private fun URL.toIDN(): URL {
         val newHost = IDN.toASCII(this.host)
-        val query = if (this.query == null) {
-            null
-        } else {
-            URLDecoder.decode(this.query, "UTF-8")
-        }
+
+        val query = this.query?.run { URLDecoder.decode(this, "UTF-8") }
+
         return URL(URI(this.protocol, this.userInfo, newHost, this.port, this.path, query, this.ref).toASCIIString())
     }
 

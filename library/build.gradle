@@ -61,12 +61,6 @@ android {
     lintOptions {
         abortOnError false
     }
-
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
-    }
 }
 
 allprojects {
@@ -79,10 +73,12 @@ allprojects {
 dependencies {
     implementation config.deps.kotlin.stdlib
 
-    implementation "io.reactivex.rxjava2:rxjava:2.1.10"
+    implementation config.deps.rx.kotlin
 
+    testImplementation config.testDeps.kotlin_test
     testImplementation config.testDeps.junit
-    testImplementation config.testDeps.robolectric
+    testImplementation config.testDeps.spek.api
+    testImplementation config.testDeps.spek.junit
 }
 
 jacoco {
