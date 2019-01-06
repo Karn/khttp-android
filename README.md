@@ -31,6 +31,20 @@ dependencies {
 }
 ```
 
+#### USAGE
+The most basic case is as follows:
+
+```Kotlin
+// Get your IP synchronously
+val ipAddress = get(url = "http://httpbin.org/ip").jsonObject
+
+// Get your IP asynchronously
+get(url = "http://httpbin.org/ip")
+    .subscribe { response : Response ->
+        val ipAddress = response.jsonObject
+    }
+```
+
 #### CONTRIBUTING
 There are many ways to [contribute](./.github/CONTRIBUTING.md), you can
 - submit bugs,
