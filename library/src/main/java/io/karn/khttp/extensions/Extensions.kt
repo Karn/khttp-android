@@ -3,6 +3,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
 package io.karn.khttp.extensions
 
 import io.karn.khttp.structures.files.FileLike
@@ -68,17 +69,20 @@ fun ByteArray.split(delimiter: ByteArray): List<ByteArray> {
     val lines = arrayListOf<ByteArray>()
     var lastSplit = 0
     var skip = 0
+
     for (i in 0 until this.size) {
         if (skip > 0) {
             skip--
             continue
         }
-        if (this.sliceArray(i until i + delimiter.size).toList() == delimiter.toList()) {
+
+        if (this.sliceArray(i until i + delimiter.size).contentEquals(delimiter)) {
             skip = delimiter.size
             lines += this.sliceArray(lastSplit until i)
             lastSplit = i + delimiter.size
         }
     }
+
     lines += this.sliceArray(lastSplit until this.size)
     return lines
 }

@@ -1,4 +1,10 @@
 /*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+/*
  * Configuration.
  *
  * Format adapted from Uber's AutoDispose library.
@@ -49,10 +55,7 @@ def testDependencies = [
         instrumentationRunner: 'androidx.test.runner.AndroidJUnitRunner',
         junit: 'junit:junit:4.12',
         kotlin_test: "org.jetbrains.kotlin:kotlin-test:${versions.kotlin}",
-        spek: [
-                api: "org.jetbrains.spek:spek-api:${versions.spek}",
-                junit: "org.jetbrains.spek:spek-junit-platform-engine:${versions.spek}"
-        ]
+        robolectric: 'org.robolectric:robolectric:4.0'
 ]
 
 ext.config = [

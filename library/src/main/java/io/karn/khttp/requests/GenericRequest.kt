@@ -3,8 +3,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
 package io.karn.khttp.requests
 
+import android.util.JsonWriter
 import io.karn.khttp.extensions.putAllIfAbsentWithNull
 import io.karn.khttp.extensions.writeAndFlush
 import io.karn.khttp.structures.authorization.Authorization
@@ -16,6 +18,7 @@ import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
+import java.io.StringWriter
 import java.net.IDN
 import java.net.URI
 import java.net.URL
@@ -167,12 +170,35 @@ class GenericRequest internal constructor(
         return if (any is JSONObject || any is JSONArray) {
             any.toString()
         } else if (any is Map<*, *>) {
-            JSONObject(any.mapKeys { it.key.toString() }).toString()
-        } else if (any is Iterable<*> || any is Array<*>) {
+            JSONObject(any).toString()
+        } else if (any is Collection<*>) {
             JSONArray(any).toString()
+        } else if (any is Array<*>) {
+            JSONArray(any).toString()
+        } else if (any is Iterable<*>) {
+            any.withJSONWriter { jsonWriter, _ ->
+                jsonWriter.beginArray()
+                for (thing in any) {
+                    when (thing) {
+                        thing == null -> jsonWriter.value("null")
+                        is Boolean -> jsonWriter.value(thing)
+                        is Number -> jsonWriter.value(thing)
+                        is String -> jsonWriter.value(thing)
+                        else -> coerceToJSON(thing!!)
+                    }
+                }
+                jsonWriter.endArray()
+            }
         } else {
             throw IllegalArgumentException("Could not coerce ${any.javaClass.simpleName} to JSON.")
         }
+    }
+
+    private fun <T> T.withJSONWriter(converter: (JsonWriter, T) -> Unit): String {
+        val stringWriter = StringWriter()
+        val writer = JsonWriter(stringWriter)
+        converter(writer, this)
+        return stringWriter.toString()
     }
 
     private fun URL.toIDN(): URL {

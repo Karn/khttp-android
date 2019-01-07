@@ -3,88 +3,43 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
 package io.karn.khttp.structures.parameters
 
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import io.karn.khttp.KHttpTestBase
+import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
-class ParametersSpec : Spek({
-    given("Parameters generated from an empty map") {
+class ParametersSpec : KHttpTestBase() {
+
+    @Test
+    fun fromEmptyMap() {
         val params = Parameters(mapOf())
-        on("toString") {
-            val string = params.toString()
-            it("should be empty") {
-                assertTrue(string.isEmpty())
-            }
-        }
+
+        assertTrue(params.isEmpty())
+        assertTrue(params.toString().isEmpty())
     }
-    given("Parameters generated from a populated map") {
+
+    @Test
+    fun fromNonEmptyMap() {
         val map = mapOf("test" to "value", "jest" to "lalue")
         val params = Parameters(map)
-        on("inspecting the object") {
-            val size = params.size
-            val containsTest = "test" in params
-            val containsJest = "jest" in params
-            val containsTestValue = params.containsValue("value")
-            val containsJestValue = params.containsValue("lalue")
-            val test = params["test"]
-            val jest = params["jest"]
-            val toString = params.toString()
-            it("should have two items") {
-                assertEquals(2, size)
-            }
-            it("should have a test mapping") {
-                assertTrue(containsTest)
-            }
-            it("should have a jest mapping") {
-                assertTrue(containsJest)
-            }
-            it("should have a value value") {
-                assertTrue(containsTestValue)
-            }
-            it("should have a lalue value") {
-                assertTrue(containsJestValue)
-            }
-            it("should not have a null test mapping") {
-                assertNotNull(test)
-            }
-            it("should not have a null jest mapping") {
-                assertNotNull(jest)
-            }
-            it("should have a test mapping equal to value") {
-                assertEquals("value", test)
-            }
-            it("should have a jest mapping equal to lalue") {
-                assertEquals("lalue", jest)
-            }
-            it("should generate a parameter string on toString") {
-                assertEquals("test=value&jest=lalue", toString)
-            }
-        }
-        on("getting null") {
-            val result: Any? = params.get(null as String?)
-            it("should be null") {
-                assertNull(result)
-            }
-        }
-        on("checking for key null") {
-            val result = params.containsKey(null as String?)
-            it("should be false") {
-                assertFalse(result)
-            }
-        }
-        on("checking for value null") {
-            val result = params.containsValue(null as String?)
-            it("should be false") {
-                assertFalse(result)
-            }
-        }
+
+        assertEquals(2, params.size)
+        assertTrue("test" in params)
+        assertTrue("jest" in params)
+        assertTrue(params.containsValue("value"))
+        assertTrue(params.containsValue("lalue"))
+
+        assertEquals("value", params["test"])
+        assertEquals("lalue", params["jest"])
+        assertEquals("test=value&jest=lalue", params.toString())
+
+        assertFalse(params.containsKey(null as String?))
+        assertNull(params[null as String?])
+        assertFalse(params.containsValue(null as String?))
     }
-})
+}
