@@ -1,0 +1,46 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+group = 'io.karn'
+version = '0.1.0'
+
+subprojects {
+    apply from: rootProject.file('gradle/configuration.gradle')
+
+    buildscript {
+
+        repositories {
+            google()
+            jcenter()
+            maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        }
+
+        dependencies {
+            classpath config.build.gradle.androidPlugin
+            classpath config.build.gradle.kotlin
+
+            // NOTE: Do not place your application configuration here; they belong
+            // in the individual module build.gradle files
+            classpath config.build.gradle.androidMaven
+            // Code coverage
+            classpath config.build.gradle.jacoco
+            // Library documentation
+            classpath config.build.gradle.dokka
+        }
+    }
+
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.10.2'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}

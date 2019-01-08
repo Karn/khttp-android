@@ -1,0 +1,128 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'jacoco'
+
+android {
+    compileSdkVersion config.build.compileSdk
+
+    defaultConfig {
+        targetSdkVersion config.build.targetSdk
+        minSdkVersion config.build.minSdk
+
+        versionCode 1
+        versionName "0.1.0"
+
+        testInstrumentationRunner config.testDeps.instrumentationRunner
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+dependencies {
+    implementation config.deps.kotlin.stdlib
+
+    implementation config.deps.rx.kotlin
+
+    testImplementation config.testDeps.kotlin_test
+    testImplementation config.testDeps.junit
+    testImplementation config.testDeps.robolectric
+}
+
+jacoco {
+    toolVersion = config.build.jacocoAgentVersion
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    //travis has some strict RAM restrictions, can't afford to exceed this
+    maxHeapSize = "1024m"
+    jvmArgs "-Xmx1024m"
+}
+
+/**
+ * Adapted from https://medium.com/@rafael_toledo/unified-code-coverage-for-android-revisited-44789c9b722f
+ */
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports for Debug build"
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    // what to exclude from coverage report
+    // UI, "noise", generated classes, platform classes, etc.
+    def excludes = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/*$ViewInjector*.*',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            'android/**/*.*',
+            '**/*Fragment.*',
+            '**/*Activity.*'
+    ]
+    // generated classes
+    classDirectories = fileTree(
+            dir: "$buildDir/intermediates/classes/debug",
+            excludes: excludes
+    ) + fileTree(
+            dir: "$buildDir/tmp/kotlin-classes/debug",
+            excludes: excludes
+    )
+
+    // sources
+    sourceDirectories = files([
+            android.sourceSets.main.java.srcDirs,
+            "$project.projectDir/src/main/java"
+    ])
+    executionData = fileTree(dir: project.buildDir, includes: ['jacoco/testDebugUnitTest.exec'])
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+
+    // Use to include or exclude non public members.
+    includeNonPublic = false
+
+    // Do not create index pages for empty packages
+    skipEmptyPackages = true
+    noStdlibLink = true
+}
