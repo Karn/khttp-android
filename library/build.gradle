@@ -19,8 +19,8 @@ android {
         targetSdkVersion config.build.targetSdk
         minSdkVersion config.build.minSdk
 
-        versionCode 10
-        versionName "1.2.0"
+        versionCode 1
+        versionName "0.1.0"
 
         testInstrumentationRunner config.testDeps.instrumentationRunner
     }
