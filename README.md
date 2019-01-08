@@ -37,12 +37,12 @@ The most basic case is as follows:
 
 ```Kotlin
 // Get your IP synchronously
-val ipAddress = get(url = "http://httpbin.org/ip").jsonObject
+val ipAddress = get(url = "http://httpbin.org/ip").jsonObject.getString("origin")
 
 // Get your IP asynchronously
 get(url = "http://httpbin.org/ip")
     .subscribe { response : Response ->
-        val ipAddress = response.jsonObject
+        val ipAddress = response.jsonObject.getString("origin")
     }
 ```
 
