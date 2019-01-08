@@ -79,9 +79,9 @@ class CookieJarTest : KHttpTestBase() {
 
         cookie = cookieJar.getCookie("test2")
         assertNotNull(cookie)
-        assertEquals("test2", cookie!!.key)
-        assertEquals("value2", cookie!!.value)
-        assertEquals(mapOf("attr1" to "attrv1"), cookie!!.attributes)
+        assertEquals("test2", cookie.key)
+        assertEquals("value2", cookie.value)
+        assertEquals(mapOf("attr1" to "attrv1"), cookie.attributes)
 
         cookie = cookieJar.getCookie("test3")
         assertNull(cookie)

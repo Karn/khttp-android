@@ -149,10 +149,9 @@ class KHttpPostTest : KHttpTestBase() {
     }
 
     @Test
-    @Ignore
     fun streamingFileUpload() {
         // Get our file to stream (a beautiful rare pepe)
-        val file = File("src/test/resources/rarest_of_pepes.png")
+        val file = File("src/test/res/rarest_of_pepes.png")
         val response = post(url = "https://httpbin.org/post",
                 data = file)
 
@@ -165,9 +164,8 @@ class KHttpPostTest : KHttpTestBase() {
     }
 
     @Test
-    @Ignore
     fun streamingInputStreamUpload() {
-        val file = File("src/test/resources/rarest_of_pepes.png")
+        val file = File("src/test/res/rarest_of_pepes.png")
         val inputStream = file.inputStream()
         val response = post(url = "https://httpbin.org/post",
                 data = inputStream)

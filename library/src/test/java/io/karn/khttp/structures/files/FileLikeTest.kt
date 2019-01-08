@@ -17,7 +17,7 @@ import kotlin.test.assertEquals
 class FileLikeTest : KHttpTestBase() {
 
     companion object {
-        const val PATH = "src/test/resources/rarest_of_pepes.png"
+        const val PATH = "src/test/res/rarest_of_pepes.png"
         const val NAME = "rarest_of_pepes.png"
 
         val file = File(PATH)
@@ -25,7 +25,6 @@ class FileLikeTest : KHttpTestBase() {
     }
 
     @Test
-    @Ignore
     fun fileWithoutCustomName() {
         val fileLike = file.fileLike()
         assertEquals(NAME, fileLike.fieldName)
@@ -33,7 +32,6 @@ class FileLikeTest : KHttpTestBase() {
     }
 
     @Test
-    @Ignore
     fun fileWithCustomName() {
         val name = "not_rare_pepe.png"
         val fileLike = file.fileLike(name = name)
@@ -42,7 +40,6 @@ class FileLikeTest : KHttpTestBase() {
     }
 
     @Test
-    @Ignore
     fun fileFromPathWithoutCustomName() {
         val fileLike = path.fileLike()
         assertEquals(NAME, fileLike.fieldName)
@@ -50,7 +47,6 @@ class FileLikeTest : KHttpTestBase() {
     }
 
     @Test
-    @Ignore
     fun fileFromPathWithCustomName() {
         val name = "not_rare_pepe.png"
         val fileLike = path.fileLike(name = name)
