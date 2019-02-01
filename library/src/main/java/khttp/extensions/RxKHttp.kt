@@ -4,20 +4,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/*
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-
 package khttp.extensions
 
+import io.reactivex.Single
+import io.reactivex.SingleEmitter
 import khttp.DEFAULT_TIMEOUT
 import khttp.responses.Response
 import khttp.structures.authorization.Authorization
 import khttp.structures.files.FileLike
-import io.reactivex.Single
-import io.reactivex.SingleEmitter
 
 @JvmOverloads
 fun delete(url: String, headers: Map<String, String?> = mapOf(), params: Map<String, String> = mapOf(), data: Any? = null, json: Any? = null, auth: Authorization? = null, cookies: Map<String, String>? = null, timeout: Double = DEFAULT_TIMEOUT, allowRedirects: Boolean? = null, stream: Boolean = false, files: List<FileLike> = listOf()): Single<Response> {
