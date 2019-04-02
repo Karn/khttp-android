@@ -46,6 +46,10 @@ get(url = "http://httpbin.org/ip")
     }
 ```
 
+#### KNOWN ISSUES
+
+- There is a issue with parsing a list of maps into a JSONObject, a test case `doesJSONObjectBugExist` documents the issue within the `KHttpPostTest.kt` file. This is platform related and cannot be fixed through this library. The current work around is to build the JSONObject manually. 
+
 #### CONTRIBUTING
 There are many ways to [contribute](./.github/CONTRIBUTING.md), you can
 - submit bugs,
