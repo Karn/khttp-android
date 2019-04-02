@@ -16,9 +16,7 @@ import khttp.structures.cookie.CookieJar
 import khttp.structures.maps.CaseInsensitiveMap
 import org.json.JSONArray
 import org.json.JSONObject
-import java.io.File
-import java.io.IOException
-import java.io.InputStream
+import java.io.*
 import java.net.HttpURLConnection
 import java.net.ProtocolException
 import java.net.URL
@@ -197,6 +195,14 @@ class GenericResponse internal constructor(override val request: Request) : Resp
             } catch (ex: IOException) {
                 this.errorStream
             }
+
+            // https://codereview.appspot.com/6846109/
+            // "this may happen for example on a HEAD request since there no actual response data
+            // read in GZIPInputStream"
+            if (stream.available() == 0) {
+                return stream
+            }
+
             return when (this@GenericResponse.headers["Content-Encoding"]?.toLowerCase()) {
                 "gzip" -> GZIPInputStream(stream)
                 "deflate" -> InflaterInputStream(stream)
