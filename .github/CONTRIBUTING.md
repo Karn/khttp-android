@@ -11,3 +11,6 @@ It is desirable, thought not absolutely neccessary that the following boxes are 
 - Have clear commit messages, this makes it easy to identify what changes were made when.
 - Include additional tests if required. This ensures that individual components behave as expected and if there are any future changes, that they do not break your code unknowingly.
 - Ensure that you've read the [code of conduct](./CODE_OF_CONDUCT.md)!
+
+Hello, I don't know how to send message on github, but could you look at this topic about khttp on android in stackoverflow?
+https://stackoverflow.com/questions/53106378/no-field-host-in-class-ljava-net-url
