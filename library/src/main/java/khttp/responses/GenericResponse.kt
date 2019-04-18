@@ -196,13 +196,6 @@ class GenericResponse internal constructor(override val request: Request) : Resp
                 this.errorStream
             }
 
-            // https://codereview.appspot.com/6846109/
-            // "this may happen for example on a HEAD request since there no actual response data
-            // read in GZIPInputStream"
-            if (stream.available() == 0) {
-                return stream
-            }
-
             return when (this@GenericResponse.headers["Content-Encoding"]?.toLowerCase()) {
                 "gzip" -> GZIPInputStream(stream)
                 "deflate" -> InflaterInputStream(stream)
