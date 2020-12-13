@@ -68,7 +68,9 @@ fun put(url: String, headers: Map<String, String?> = mapOf(), params: Map<String
 
 @JvmOverloads
 fun request(method: String, url: String, headers: Map<String, String?> = mapOf(), params: Map<String, String> = mapOf(), data: Any? = null, json: Any? = null, auth: Authorization? = null, cookies: Map<String, String>? = null, timeout: Double = DEFAULT_TIMEOUT, allowRedirects: Boolean? = null, stream: Boolean = false, files: List<FileLike> = listOf()): Response {
-    val response = GenericResponse(GenericRequest(method, url, params, headers, data, json, auth, cookies, timeout, allowRedirects, stream, files)).run {
+    val request = GenericRequest(method, url, params, headers, data, json, auth, cookies, timeout, allowRedirects, stream, files)
+
+    val response = GenericResponse(request).run {
         this.init()
         this._history.last().apply {
             this@run._history.remove(this)

@@ -6,9 +6,9 @@
 
 package khttp.structures.authorization
 
+import android.util.Base64
 import khttp.KHttpTestBase
 import org.junit.Test
-import java.util.Base64
 import kotlin.test.assertEquals
 
 class BasicAuthorizationTest : KHttpTestBase() {
@@ -17,7 +17,7 @@ class BasicAuthorizationTest : KHttpTestBase() {
     fun validateBasicAuth() {
         val username = "test"
         val password = "hunter2"
-        val base64 = "Basic " + Base64.getEncoder().encode("$username:$password".toByteArray()).toString(Charsets.UTF_8)
+        val base64 = "Basic " + Base64.encode("$username:$password".toByteArray(), Base64.DEFAULT).toString(Charsets.UTF_8)
         val auth = BasicAuthorization(username, password)
 
         assertEquals(username, auth.user)

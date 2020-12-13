@@ -363,6 +363,7 @@ class GenericResponse internal constructor(override val request: Request) : Resp
     private fun updateRequestHeaders() {
         val headers = (this.request.headers as MutableMap<String, String>)
         val requests = this.connection.javaClass.getField("requests", this.connection) ?: return
+
         @Suppress("UNCHECKED_CAST")
         val requestsHeaders = requests.javaClass.getDeclaredMethod("getHeaders").apply { this.isAccessible = true }.invoke(requests) as Map<String, List<String>>
         headers += requestsHeaders.filterValues { it.isNotEmpty() }.mapValues { it.value.joinToString(", ") }
